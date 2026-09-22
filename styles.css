@@ -951,7 +951,10 @@ details[open] summary::after {
   .plan,
   .results-actions,
   .results-kicker,
-  .ad-slot {
+  .ad-slot,
+  ins.adsbygoogle,
+  .google-auto-placed,
+  iframe[src*="googlesyndication"] {
     display: none !important;
   }
 

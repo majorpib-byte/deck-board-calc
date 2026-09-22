@@ -1,9 +1,8 @@
-// Paste your AdSense publisher ID to turn ads on.
-// Leave this empty until Google approves the site.
-// No request is sent to googlesyndication.com while it is blank.
-const ADSENSE_CLIENT = ""; // ca-pub-XXXXXXXX
+// Publisher ID. Leave this empty to send no AdSense request.
+const ADSENSE_CLIENT = "ca-pub-2388538564495463";
 
 // Display ad unit IDs from AdSense → Ads → By ad unit.
+// Leave both blank to use Auto ads instead of these two slots.
 const AD_SLOT_PRIMARY = "";
 const AD_SLOT_SECONDARY = "";
 
@@ -37,6 +36,13 @@ if (ADS_ENABLED) {
   loader.crossOrigin = "anonymous";
   document.head.append(loader);
 
-  mountAd("ad-primary", AD_SLOT_PRIMARY);
-  mountAd("ad-secondary", AD_SLOT_SECONDARY);
+  if (AD_SLOT_PRIMARY) mountAd("ad-primary", AD_SLOT_PRIMARY);
+  if (AD_SLOT_SECONDARY) mountAd("ad-secondary", AD_SLOT_SECONDARY);
+
+  if (!AD_SLOT_PRIMARY && !AD_SLOT_SECONDARY) {
+    (window.adsbygoogle = window.adsbygoogle || []).push({
+      google_ad_client: ADSENSE_CLIENT,
+      enable_page_level_ads: true,
+    });
+  }
 }
