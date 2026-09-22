@@ -43,7 +43,7 @@ The site is a single page: `index.html`, `styles.css`, `app.js`, `calc.js`, `ads
 | `index.html` | Page, FAQ, and FAQ schema |
 | `styles.css` | Layout, including print styles for the shopping list |
 | `app.js` | Reads the form and updates the list as you type |
-| `ads.js` | AdSense switch. Off until a publisher ID is pasted in |
+| `ads.js` | AdSense. Auto ads until display slot IDs are pasted in |
 | `calc.js` | Pure math, no DOM |
 | `calc.test.js` | Unit tests for that math |
 | `FORMULAS.md` | The formulas in plain language, with the 12×16 example |
@@ -58,24 +58,27 @@ The title, meta description, and Open Graph tags (`og:title`, `og:description`, 
 
 ## Print
 
-**Print list** opens the browser print dialog. The print stylesheet hides the header, hero, form, diagram, FAQ, ad slots, and the long math essay. It keeps the DeckBoardCalc name, the date, the deck size, the cut plan, a short math summary, the line items (boards by length, fasteners, and joists when they are included), and the total. The footer line is `Printed from DeckBoardCalc · https://deckboardcalc.com/`. Text is black on white, and each shopping line tries to stay on one page.
+**Print list** opens the browser print dialog. The print stylesheet hides the header, hero, form, diagram, FAQ, ad slots, Auto ads, and the long math essay. It keeps the DeckBoardCalc name, the date, the deck size, the cut plan, a short math summary, the line items (boards by length, fasteners, and joists when they are included), and the total. The footer line is `Printed from DeckBoardCalc · https://deckboardcalc.com/`. Text is black on white, and each shopping line tries to stay on one page.
 
 To check it: open the page, choose **Print list**, and look at the preview. The form, FAQ, and ad slots should be gone. The list, prices, and short summary should remain.
 
 ## Ads
 
-Ads stay off until you paste a publisher ID. Open `ads.js` and set:
+The publisher ID is set in `ads.js`:
 
 ```js
-const ADSENSE_CLIENT = ""; // ca-pub-XXXXXXXX
+const ADSENSE_CLIENT = "ca-pub-2388538564495463";
 ```
 
-`ADS_ENABLED` is true only when that string is filled in. While it is empty, the page does not load `adsbygoogle.js`. The two slots stay hidden, so nothing that looks like an ad is on the page.
+That loads `adsbygoogle.js?client=ca-pub-2388538564495463` with `crossorigin="anonymous"`. `AD_SLOT_PRIMARY` and `AD_SLOT_SECONDARY` are still empty, so `#ad-primary` and `#ad-secondary` stay hidden. With both slot IDs blank, the page turns on Auto ads once:
 
-Leave them off until AdSense approves the site.
+```js
+(window.adsbygoogle = window.adsbygoogle || []).push({
+  google_ad_client: ADSENSE_CLIENT,
+  enable_page_level_ads: true,
+});
+```
 
-1. Apply at [https://www.google.com/adsense/](https://www.google.com/adsense/) and submit [https://deckboardcalc.com/](https://deckboardcalc.com/).
-2. After approval, create two Display ad units. Paste their slot IDs into `AD_SLOT_PRIMARY` and `AD_SLOT_SECONDARY` in `ads.js`.
-3. Paste the publisher ID (`ca-pub-…`) into `ADSENSE_CLIENT`.
+To use fixed units later, create Display ad units in AdSense and paste the slot IDs into `AD_SLOT_PRIMARY` (under the shopping list) and `AD_SLOT_SECONDARY` (after the FAQ). A filled ID is mounted as a display unit. Auto ads run only while both IDs are blank. An empty ID is not mounted.
 
-The primary unit sits under the shopping list. The secondary unit sits after the FAQ. Neither covers the inputs or the Print button. Both are hidden in print. A unit with a blank slot ID is skipped, even if the publisher ID is set.
+Print hides the ad hosts and AdSense units, including Auto ads. The reserved slots sit outside the form and do not cover the inputs or the Print button. Manage the account at [https://www.google.com/adsense/](https://www.google.com/adsense/) for [https://deckboardcalc.com/](https://deckboardcalc.com/).
