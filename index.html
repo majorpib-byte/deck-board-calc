@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Deck Board Calculator — DIY Shopping List | DeckBoardCalc</title>
+    <meta
+      name="description"
+      content="Make a lumber shopping list for a DIY deck. Enter the size, board width, and gap for boards by length, screws, joists, and cost. Free, in your browser."
+    />
+    <meta name="theme-color" content="#1b3a2f" />
+    <meta property="og:site_name" content="DeckBoardCalc" />
+    <meta property="og:title" content="Deck Board Calculator — DIY Shopping List | DeckBoardCalc" />
+    <meta
+      property="og:description"
+      content="Make a lumber shopping list for a DIY deck. Enter the size, board width, and gap for boards by length, screws, joists, and cost. Free, in your browser."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://example.com/" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "DeckBoardCalc",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Any",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "description": "Free deck board calculator that builds a printable lumber shopping list for a DIY deck: boards by length, screws, joists, and cost. Runs in the browser with no signup."
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity":         [
+          {
+            "@type": "Question",
+            "name": "How many deck boards do I need for a 10×12 deck?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "With 5 1/2 in boards, a 1/8 in gap, 10% waste, and 8, 10, 12, and 16 ft boards available, a 10×12 deck depends on which way the boards run. Boards along the 12 ft side, stacked across 10 ft: 22 rows cover the deck, and you buy 25 boards at 12 ft (300 linear feet). Boards along the 10 ft side, stacked across 12 ft: 26 rows, and you buy 29 boards at 10 ft (290 linear feet). On the deck itself that is 264 or 260 linear feet. Length on this page is along the house."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How many deck boards do I need for a 12×16 deck?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A 12×16 deck is not one number. It depends which way the boards run. With the same defaults — 5 1/2 in boards, a 1/8 in gap, 10% waste, and those stock lengths — boards along the 16 ft side, stacked across 12 ft, need 26 rows. Buy 29 boards at 16 ft (464 linear feet). 416 linear feet sit on the deck. Boards along the 12 ft side, stacked across 16 ft, need 35 rows. Buy 39 boards at 12 ft (468 linear feet). DeckBoardCalc opens on the first layout: joists run out from the house, and boards run along the house."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How many deck boards do I need for a 14×20 deck?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Same defaults. Boards along the 20 ft side, stacked across 14 ft: 30 rows. No single 8, 10, 12, or 16 ft board covers a 20 ft row, so each row is two 10 ft boards. With 10% waste you buy 66 boards at 10 ft (660 linear feet to buy, 600 on the deck). Boards along the 14 ft side, stacked across 20 ft: 43 rows, and you buy 48 boards at 16 ft, trimming about 2 ft off each. Put a butt joint on a joist when you build. This list counts lumber, not the joint layout."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do you calculate the number of deck boards?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Decide which way the boards run. The rows stack across the other dimension. Divide that distance by one board plus one gap, then round up. There is no gap after the last board, so the formula is (across + gap) ÷ (board width + gap), rounded up. Cover each row with stock you can buy. If one board is long enough to cut into two full rows, it counts twice. If nothing is long enough, splice the row from shorter boards. Then add your waste percent as extra rows and round up to whole boards."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What waste factor should I use for decking?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "10% is a sound default for a simple rectangle with square cuts. Use about 15% if you are new to cutting, you expect to reject crowned boards, or the deck has angles, a picture frame, or breaker boards. Use 5% only when the stock length matches the run and you are comfortable with almost no extras. The percent sits on top of offcuts. A 16 ft board cut down to a 12 ft row already leaves 4 ft in the cut plan. Waste adds boards beyond that."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How big a gap should I leave between deck boards?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "For pressure-treated wood or cedar, 1/8 in is the usual gap. A wet climate sometimes uses 3/16 in. Composite and PVC decking is different: use the gap the manufacturer prints, especially with hidden fasteners. A gap of 0 on wood can hold water and let boards buckle when they swell. The gap also changes the count. On a 12 ft width with 5 1/2 in boards, butting them tight takes 27 rows. A 1/8 in gap brings that to 26, because the openings are space you do not buy."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Which board lengths should I check at the lumberyard?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Check 8, 10, 12, and 16 ft if the yard has them, and uncheck a length it does not. The list covers each row with the least lumber after waste. If one board cuts into two full rows, it counts twice. If every board is shorter than the row, the row is spliced and the cut plan says so. A 16 ft board trimmed to 12 ft leaves 4 ft that cannot start another row, so that offcut is not counted as a second board. The waste percent is extra boards on top of those offcuts."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the real width of a 5/4×6 or 2×6 deck board?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A 5/4×6 is about 1 in thick and 5 1/2 in wide. The 6 is a nominal width. A 2×6 is about 1 1/2 in thick and also 5 1/2 in on the face. For a board count, both use 5.5 inches. A 2×4-style face is 3 1/2 in. Measure a board at the yard if the stock looks different from the label."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How many screws do I need, and what about hidden fasteners?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Use two screws every time a board crosses a joist. On the opening example — 16 ft by 12 ft, boards along the house, joists at 16 in on center — that is 26 boards × 13 joists × 2 = 676 screws. Add 10% and you buy 744. Hidden fastener clips are a different count. Follow the clip maker, and do not use this screw line for a clip system. The joist spacing control only feeds this estimate. It does not say whether 12, 16, or 24 in on center is allowed for your board or your span."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How many joists do I need at 16 inches on center?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Put a joist at each end, then fill the middle at the spacing you picked. For 16 ft at 16 in on center, 192 in ÷ 16 in = 12 spaces, and 12 spaces need 13 joists. If the length does not divide evenly, the last bay is shorter than the spacing, not longer. Those end joists are already in the count. You still need an outer rim board the length of the deck, and a ledger if the deck attaches to the house. This page does not check span tables, beam size, or footings."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Should deck boards run the long way or the short way?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Run them perpendicular to the joists. On a deck attached to a house, joists usually run out from the house, so the boards run along the house. That is the default here. The other direction is a different shopping list, not a smaller version of the same one. A 12×16 with boards on the 12 ft side wants 12 ft stock: 39 boards at the defaults above. Boards on the 16 ft side want 16 ft stock: 29 boards. Build the direction you are framing. A row that fits on one stock board avoids a butt joint."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is pressure-treated decking counted differently from composite?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The count uses the face width and the gap you type, so it works for either. Pressure-treated and cedar 5/4×6 or 2×6 boards are usually 5 1/2 in wide, with about a 1/8 in gap, and they are fastened with screws. Composite and PVC are often a different width. The manufacturer sets the gap and the fastener, and many systems use hidden clips instead of two screws per joist. Measure the board and enter that width and gap. The starting prices are a pressure-treated ballpark, not a composite quote."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is this deck calculator permit ready?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. It is a shopping estimate for a rectangular deck: board count, a screw rule of thumb, and a joist count at the spacing you chose. It does not apply IRC or local span tables, footing sizes, ledger bolts, guards, or stairs. Check the plan against your local code. If you are unsure, ask a builder or the inspector before you buy or build."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I change the board price?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Switch between dollars per linear foot and dollars per board. The starting prices are a rough big-box ballpark for pressure-treated 5/4×6 decking (about $1.25 a linear foot), 2×8 joists (about $1.60 a linear foot), and screws (about $10 per 100). They are not a quote. Type the price at the yard and the total updates. Nothing is uploaded."
+            }
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#calculator">Skip to calculator</a>
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="logo" href="#top">
+          <svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true">
+            <rect width="32" height="32" rx="7" fill="#1b3a2f" />
+            <path
+              d="M9 7.5v17M14 7.5v17M19 7.5v17M24 7.5v17M7.5 23.5L25.5 9"
+              fill="none"
+              stroke="#f3efe6"
+              stroke-width="1.8"
+              stroke-linecap="round"
+            />
+          </svg>
+          DeckBoardCalc
+        </a>
+        <nav class="nav" aria-label="On this page">
+          <a href="#calculator">Calculator</a>
+          <a href="#shopping-list">List</a>
+          <a href="#math">Math</a>
+          <a href="#faq">FAQ</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="top">
+      <div class="wrap">
+        <section class="hero">
+          <p class="eyebrow">For DIY homeowners</p>
+          <h1>Deck board shopping list</h1>
+          <p class="lede">
+            Count the boards, screws, and joists for a rectangular deck, then print a list for the lumberyard. You
+            set the prices. Nothing is uploaded.
+          </p>
+          <ul class="trust">
+            <li>Free</li>
+            <li>No signup</li>
+            <li>Runs in your browser</li>
+          </ul>
+        </section>
+
+        <section id="calculator" class="calc-layout" aria-labelledby="calc-heading">
+          <h2 id="calc-heading" class="visually-hidden">Calculator</h2>
+          <form id="deck-form" class="calc-form" autocomplete="off">
+            <fieldset>
+              <legend>Deck size</legend>
+              <p class="help" id="size-help">
+                Length runs along the house. Width is out from the house. A 12×16 deck starts here as 16 ft along by
+                12 ft out. Use decimals (12.5) or feet and inches.
+              </p>
+              <div class="chips" role="group" aria-label="Common deck sizes">
+                <button type="button" class="chip" data-deck-length="10" data-deck-width="10" aria-label="10 by 10 deck">
+                  10×10
+                </button>
+                <button type="button" class="chip" data-deck-length="12" data-deck-width="12" aria-label="12 by 12 deck">
+                  12×12
+                </button>
+                <button
+                  type="button"
+                  class="chip"
+                  data-deck-length="16"
+                  data-deck-width="12"
+                  aria-pressed="true"
+                  aria-label="12 by 16 deck, 16 feet along the house and 12 feet out"
+                >
+                  12×16
+                </button>
+                <button
+                  type="button"
+                  class="chip"
+                  data-deck-length="20"
+                  data-deck-width="16"
+                  aria-label="16 by 20 deck, 20 feet along the house and 16 feet out"
+                >
+                  16×20
+                </button>
+              </div>
+              <div class="dims" style="margin-top: 0.8rem">
+                <fieldset>
+                  <legend>Along the house</legend>
+                  <div class="dim">
+                    <label class="field">
+                      <span>Feet</span>
+                      <input id="length-ft" type="number" inputmode="decimal" min="0" step="any" value="16" />
+                    </label>
+                    <label class="field">
+                      <span>Inches</span>
+                      <input id="length-in" type="number" inputmode="decimal" min="0" step="any" value="0" />
+                    </label>
+                  </div>
+                </fieldset>
+                <fieldset>
+                  <legend>Out from the house</legend>
+                  <div class="dim">
+                    <label class="field">
+                      <span>Feet</span>
+                      <input id="width-ft" type="number" inputmode="decimal" min="0" step="any" value="12" />
+                    </label>
+                    <label class="field">
+                      <span>Inches</span>
+                      <input id="width-in" type="number" inputmode="decimal" min="0" step="any" value="0" />
+                    </label>
+                  </div>
+                </fieldset>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Which way do the boards run?</legend>
+              <div class="choices two">
+                <label class="choice">
+                  <input type="radio" name="board-run" value="length" checked />
+                  <span>Along the house <small>Usual layout. Joists run out from the house.</small></span>
+                </label>
+                <label class="choice">
+                  <input type="radio" name="board-run" value="width" />
+                  <span>Out from the house <small>Different cut list. Joists would run along the house.</small></span>
+                </label>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Decking</legend>
+              <label class="field" for="board-width">Board width (inches)</label>
+              <input id="board-width" type="number" inputmode="decimal" min="0" step="any" value="5.5" />
+              <div class="chips" role="group" aria-label="Common board widths">
+                <button type="button" class="chip" data-width="5.5" aria-pressed="true">5 1/2 in · 5/4×6 or 2×6</button>
+                <button type="button" class="chip" data-width="3.5">3 1/2 in · 2×4</button>
+                <button type="button" class="chip" data-width="7.25">7 1/4 in · 2×8</button>
+              </div>
+
+              <label class="field" for="gap" style="margin-top: 0.85rem">Gap between boards (inches)</label>
+              <input id="gap" type="number" inputmode="decimal" min="0" step="any" value="0.125" />
+              <div class="chips" role="group" aria-label="Common gaps">
+                <button type="button" class="chip" data-gap="0.125" aria-pressed="true">1/8 in</button>
+                <button type="button" class="chip" data-gap="0.1875">3/16 in</button>
+                <button type="button" class="chip" data-gap="0.25">1/4 in</button>
+                <button type="button" class="chip" data-gap="0">Tight</button>
+              </div>
+
+              <fieldset class="stocks">
+                <legend>Board lengths the yard has</legend>
+                <label class="stock"><input type="checkbox" name="stock" value="8" checked /> 8 ft</label>
+                <label class="stock"><input type="checkbox" name="stock" value="10" checked /> 10 ft</label>
+                <label class="stock"><input type="checkbox" name="stock" value="12" checked /> 12 ft</label>
+                <label class="stock"><input type="checkbox" name="stock" value="16" checked /> 16 ft</label>
+              </fieldset>
+
+              <label class="field" id="waste-label" for="waste">Waste allowance (%)</label>
+              <div class="waste-row">
+                <input id="waste" type="number" inputmode="numeric" min="0" max="50" step="1" value="10" />
+                <input
+                  id="waste-range"
+                  type="range"
+                  min="0"
+                  max="50"
+                  step="1"
+                  value="10"
+                  aria-label="Waste allowance percent"
+                />
+              </div>
+              <p class="help">10% is a solid default for a simple rectangle. It is extra boards, on top of offcuts.</p>
+            </fieldset>
+
+            <fieldset>
+              <legend>Joists, for the screw count</legend>
+              <p class="help">
+                Spacing is only for the screw estimate and the joist count. It is not a span-table check.
+              </p>
+              <div class="spacing" role="radiogroup" aria-label="Joist spacing">
+                <label class="choice">
+                  <input type="radio" name="spacing" value="12" />
+                  <span>12 in</span>
+                </label>
+                <label class="choice">
+                  <input type="radio" name="spacing" value="16" checked />
+                  <span>16 in</span>
+                </label>
+                <label class="choice">
+                  <input type="radio" name="spacing" value="24" />
+                  <span>24 in</span>
+                </label>
+              </div>
+              <label class="checkline">
+                <input id="include-joists" type="checkbox" checked />
+                <span>Include joists and one rim board in the cost</span>
+              </label>
+            </fieldset>
+
+            <fieldset>
+              <legend>Prices</legend>
+              <p class="help">
+                Starting points for pressure-treated 5/4×6 decking, about $1.25 a linear foot, and 2×8 joists, about
+                $1.60. Edit them to your quote.
+              </p>
+              <div class="choices two">
+                <label class="choice">
+                  <input type="radio" name="price-mode" value="lf" checked />
+                  <span>Per linear foot</span>
+                </label>
+                <label class="choice">
+                  <input type="radio" name="price-mode" value="board" />
+                  <span>Per board</span>
+                </label>
+              </div>
+              <div id="price-lf-field" class="field" style="margin-top: 0.75rem">
+                <label for="price-lf">Decking, $ per linear foot</label>
+                <input id="price-lf" type="number" inputmode="decimal" min="0" step="0.01" value="1.25" />
+              </div>
+              <div id="price-board-fields" class="price-grid board-prices" hidden style="margin-top: 0.75rem">
+                <label class="field" data-price-feet="8">
+                  <span>8 ft board, $</span>
+                  <input id="price-8" type="number" inputmode="decimal" min="0" step="0.01" value="10" />
+                </label>
+                <label class="field" data-price-feet="10">
+                  <span>10 ft board, $</span>
+                  <input id="price-10" type="number" inputmode="decimal" min="0" step="0.01" value="12.50" />
+                </label>
+                <label class="field" data-price-feet="12">
+                  <span>12 ft board, $</span>
+                  <input id="price-12" type="number" inputmode="decimal" min="0" step="0.01" value="15" />
+                </label>
+                <label class="field" data-price-feet="16">
+                  <span>16 ft board, $</span>
+                  <input id="price-16" type="number" inputmode="decimal" min="0" step="0.01" value="20" />
+                </label>
+              </div>
+              <div class="price-grid" style="margin-top: 0.75rem">
+                <label class="field">
+                  <span>Joists and rim, $ per linear foot</span>
+                  <input id="joist-price" type="number" inputmode="decimal" min="0" step="0.01" value="1.60" />
+                </label>
+                <label class="field">
+                  <span>Screws, $ per 100</span>
+                  <input id="screw-price" type="number" inputmode="decimal" min="0" step="0.01" value="10" />
+                </label>
+              </div>
+            </fieldset>
+            <noscript>
+              <p>
+                JavaScript runs the calculator in this browser. Nothing is uploaded. With it off, a 16 ft by 12 ft deck
+                with 5 1/2 in boards, a 1/8 in gap, and 10% waste is 29 boards at 16 ft.
+              </p>
+            </noscript>
+          </form>
+
+          <div id="results" class="results">
+            <p id="live-summary" class="visually-hidden" aria-live="polite"></p>
+            <p id="print-banner" class="print-only"></p>
+            <div class="results-top">
+              <figure class="plan" id="plan" aria-hidden="true" style="--along: 16; --out: 12">
+                <div class="plan-frame"><div class="plan-boards" id="plan-boards"></div></div>
+              </figure>
+              <div>
+                <p class="results-kicker" id="results-kicker">Shopping list</p>
+                <p class="results-count">
+                  <output id="board-count" for="length-ft length-in width-ft width-in board-width gap waste">…</output>
+                  <span class="unit" id="count-unit">boards</span>
+                </p>
+                <p class="results-label" id="results-label"></p>
+                <p class="results-size" id="results-size"></p>
+              </div>
+            </div>
+            <dl class="stats" id="stats"></dl>
+            <div class="results-actions no-print">
+              <button type="button" class="btn" id="print-btn" aria-label="Print the shopping list">
+                <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M6 9V3h12v6" />
+                  <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+                  <rect x="6" y="14" width="12" height="7" />
+                </svg>
+                Print list
+              </button>
+            </div>
+            <div class="sheet" id="shopping-list">
+              <h2>Shopping list</h2>
+              <p class="assumptions" id="assumptions"></p>
+              <p class="cut-plan" id="cut-plan"></p>
+              <p class="print-math print-only" id="print-math"></p>
+              <p id="results-error" class="results-error" role="alert" hidden></p>
+              <div id="warnings"></div>
+              <div id="shop-lines"></div>
+              <p class="shop-total" id="shop-total"></p>
+              <p class="shop-note" id="shop-note"></p>
+            </div>
+          </div>
+        </section>
+
+        <section id="math" class="section screen-only">
+          <div class="math-card">
+            <h2>How the count works</h2>
+            <div class="prose">
+              <p>
+                Square footage is not a board count. DeckBoardCalc counts rows, then buys whole stock boards that
+                cover those rows. For a 16 ft by 12 ft deck with 5 1/2 in boards, a 1/8 in gap, and boards running
+                the 16 ft way, that is 26 rows. At 10% waste you buy 29 boards of 16 ft.
+              </p>
+              <ol>
+                <li>Pick the board run. Rows stack across the other side.</li>
+                <li>
+                  Rows = (across + gap) ÷ (board width + gap), rounded up. There is no gap after the last board.
+                </li>
+                <li>
+                  If a stock length covers a row, use it. If one board cuts into two or more full rows, those pieces
+                  count. Among lengths that work, the list buys the fewest linear feet after waste.
+                </li>
+                <li>
+                  If every board is shorter than the row, the row is spliced from the mix with the least waste. The
+                  butt joint has to land on a joist when you build.
+                </li>
+                <li>
+                  Waste (default 10%) adds extra rows, then rounds up to whole boards. Offcuts are already in the
+                  cut plan. Waste is on top of that.
+                </li>
+                <li>
+                  Joists: one at each end of the run, plus every spacing you picked. Screws: 2 per board per joist,
+                  then the same waste percent.
+                </li>
+                <li>Cost is your price times what you buy. The defaults are a ballpark, not a quote.</li>
+              </ol>
+            </div>
+            <h3 class="subhead">Your deck, worked out</h3>
+            <ol class="steps" id="worked"></ol>
+          </div>
+        </section>
+
+        <section id="faq" class="section">
+          <div class="faq-card">
+            <h2>Common questions</h2>
+            <div class="faq">
+              <details>
+                <summary>How many deck boards do I need for a 10×12 deck?</summary>
+                <div class="answer">
+                  <p>
+                    With 5 1/2 in boards, a 1/8 in gap, 10% waste, and 8, 10, 12, and 16 ft boards available, a 10×12 deck depends on which way the boards run. Boards along the 12 ft side, stacked across 10 ft: 22 rows cover the deck, and you buy 25 boards at 12 ft (300 linear feet). Boards along the 10 ft side, stacked across 12 ft: 26 rows, and you buy 29 boards at 10 ft (290 linear feet). On the deck itself that is 264 or 260 linear feet. Length on this page is along the house.
+                  </p>
+                </div>
+              </details>
+              <details>
+                <summary>How many deck boards do I need for a 12×16 deck?</summary>
+                <div class="answer">
+                  <p>
+                    A 12×16 deck is not one number. It depends which way the boards run. With the same defaults — 5 1/2 in boards, a 1/8 in gap, 10% waste, and those stock lengths — boards along the 16 ft side, stacked across 12 ft, need 26 rows. Buy 29 boards at 16 ft (464 linear feet). 416 linear feet sit on the deck. Boards along the 12 ft side, stacked across 16 ft, need 35 rows. Buy 39 boards at 12 ft (468 linear feet). DeckBoardCalc opens on the first layout: joists run out from the house, and boards run along the house.
+                  </p>
+                </div>
+              </details>
+              <details>
+                <summary>How many deck boards do I need for a 14×20 deck?</summary>
+                <div class="answer">
+                  <p>
+                    Same defaults. Boards along the 20 ft side, stacked across 14 ft: 30 rows. No single 8, 10, 12, or 16 ft board covers a 20 ft row, so each row is two 10 ft boards. With 10% waste you buy 66 boards at 10 ft (660 linear feet to buy, 600 on the deck). Boards along the 14 ft side, stacked across 20 ft: 43 rows, and you buy 48 boards at 16 ft, trimming about 2 ft off each. Put a butt joint on a joist when you build. This list counts lumber, not the joint layout.
+                  </p>
+                </div>
+              </details>
+              <details>
+                <summary>How do you calculate the number of deck boards?</summary>
+                <div class="answer">
+                  <p>
+                    Decide which way the boards run. The rows stack across the other dimension. Divide that distance by one board plus one gap, then round up. There is no gap after the last board, so the formula is (across + gap) ÷ (board width + gap), rounded up. Cover each row with stock you can buy. If one board is long enough to cut into two full rows, it counts twice. If nothing is long enough, splice the row from shorter boards. Then add your waste percent as extra rows and round up to whole boards.
+                  </p>
+                </div>
+              </details>
+              <details>
+                <summary>What waste factor should I use for decking?</summary>
+                <div class="answer">
+                  <p>
+                    10% is a sound default for a simple rectangle with square cuts. Use about 15% if you are new to cutting, you expect to reject crowned boards, or the deck has angles, a picture frame, or breaker boards. Use 5% only when the stock length matches the run and you are comfortable with almost no extras. The percent sits on top of offcuts. A 16 ft board cut down to a 12 ft row already leaves 4 ft in the cut plan. Waste adds boards beyond that.
+                  </p>
+                </div>
+              </details>
+              <details>
+                <summary>How big a gap should I leave between deck boards?</summary>
+                <div class="answer">
+                  <p>
+                    For pressure-treated wood or cedar, 1/8 in is the usual gap. A wet climate sometimes uses 3/16 in. Composite and PVC decking is different: use the gap the manufacturer prints, especially with hidden fasteners. A gap of 0 on wood can hold water and let boards buckle when they swell. The gap also changes the count. On a 12 ft width with 5 1/2 in boards, butting them tight takes 27 rows. A 1/8 in gap brings that to 26, because the openings are space you do not buy.
+                  </p>
+                </div>
+              </details>
+              <details>
+                <summary>Which board lengths should I check at the lumberyard?</summary>
+                <div class="answer">
+                  <p>
+                    Check 8, 10, 12, and 16 ft if the yard has them, and uncheck a length it does not. The list covers each row with the least lumber after waste. If one board cuts into two full rows, it counts twice. If every board is shorter than the row, the row is spliced and the cut plan says so. A 16 ft board trimmed to 12 ft leaves 4 ft that cannot start another row, so that offcut is not counted as a second board. The waste percent is extra boards on top of those offcuts.
+                  </p>
+                </div>
+              </details>
+              <details>
+                <summary>What is the real width of a 5/4×6 or 2×6 deck board?</summary>
+                <div class="answer">
+                  <p>
+                    A 5/4×6 is about 1 in thick and 5 1/2 in wide. The 6 is a nominal width. A 2×6 is about 1 1/2 in thick and also 5 1/2 in on the face. For a board count, both use 5.5 inches. A 2×4-style face is 3 1/2 in. Measure a board at the yard if the stock looks different from the label.
+                  </p>
+                </div>
+              </details>
+              <details>
+                <summary>How many screws do I need, and what about hidden fasteners?</summary>
+                <div class="answer">
+                  <p>
+                    Use two screws every time a board crosses a joist. On the opening example — 16 ft by 12 ft, boards along the house, joists at 16 in on center — that is 26 boards × 13 joists × 2 = 676 screws. Add 10% and you buy 744. Hidden fastener clips are a different count. Follow the clip maker, and do not use this screw line for a clip system. The joist spacing control only feeds this estimate. It does not say whether 12, 16, or 24 in on center is allowed for your board or your span.
+                  </p>
+                </div>
+              </details>
+              <details>
+                <summary>How many joists do I need at 16 inches on center?</summary>
+                <div class="answer">
+                  <p>
+                    Put a joist at each end, then fill the middle at the spacing you picked. For 16 ft at 16 in on center, 192 in ÷ 16 in = 12 spaces, and 12 spaces need 13 joists. If the length does not divide evenly, the last bay is shorter than the spacing, not longer. Those end joists are already in the count. You still need an outer rim board the length of the deck, and a ledger if the deck attaches to the house. This page does not check span tables, beam size, or footings.
+                  </p>
+                </div>
+              </details>
+              <details>
+                <summary>Should deck boards run the long way or the short way?</summary>
+                <div class="answer">
+                  <p>
+                    Run them perpendicular to the joists. On a deck attached to a house, joists usually run out from the house, so the boards run along the house. That is the default here. The other direction is a different shopping list, not a smaller version of the same one. A 12×16 with boards on the 12 ft side wants 12 ft stock: 39 boards at the defaults above. Boards on the 16 ft side want 16 ft stock: 29 boards. Build the direction you are framing. A row that fits on one stock board avoids a butt joint.
+                  </p>
+                </div>
+              </details>
+              <details>
+                <summary>Is pressure-treated decking counted differently from composite?</summary>
+                <div class="answer">
+                  <p>
+                    The count uses the face width and the gap you type, so it works for either. Pressure-treated and cedar 5/4×6 or 2×6 boards are usually 5 1/2 in wide, with about a 1/8 in gap, and they are fastened with screws. Composite and PVC are often a different width. The manufacturer sets the gap and the fastener, and many systems use hidden clips instead of two screws per joist. Measure the board and enter that width and gap. The starting prices are a pressure-treated ballpark, not a composite quote.
+                  </p>
+                </div>
+              </details>
+              <details>
+                <summary>Is this deck calculator permit ready?</summary>
+                <div class="answer">
+                  <p>
+                    No. It is a shopping estimate for a rectangular deck: board count, a screw rule of thumb, and a joist count at the spacing you chose. It does not apply IRC or local span tables, footing sizes, ledger bolts, guards, or stairs. Check the plan against your local code. If you are unsure, ask a builder or the inspector before you buy or build.
+                  </p>
+                </div>
+              </details>
+              <details>
+                <summary>Can I change the board price?</summary>
+                <div class="answer">
+                  <p>
+                    Yes. Switch between dollars per linear foot and dollars per board. The starting prices are a rough big-box ballpark for pressure-treated 5/4×6 decking (about $1.25 a linear foot), 2×8 joists (about $1.60 a linear foot), and screws (about $10 per 100). They are not a quote. Type the price at the yard and the total updates. Nothing is uploaded.
+                  </p>
+                </div>
+              </details>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap screen-only">
+        <p>
+          <strong>Estimates only.</strong> DeckBoardCalc counts boards, screws, and a simple joist layout for a
+          rectangular deck. It is not a code span table, a permit drawing, or a substitute for local rules and a
+          qualified builder. Confirm spacing, spans, ledgers, guards, and footings before you build.
+        </p>
+        <p>Free. No signup, no upload, no third-party scripts. The math stays in this browser.</p>
+        <p class="footer-brand">DeckBoardCalc</p>
+      </div>
+      <p class="print-foot print-only">
+        Printed from DeckBoardCalc · https://example.com · Estimates only, not IRC or permit advice.
+      </p>
+    </footer>
+
+    <div class="dock no-print">
+      <p>
+        <strong id="dock-main">Boards</strong>
+        <span id="dock-sub"></span>
+      </p>
+      <a href="#shopping-list">See list</a>
+    </div>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
