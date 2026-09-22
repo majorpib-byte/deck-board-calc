@@ -848,6 +848,29 @@ details[open] summary::after {
   display: none;
 }
 
+/* Filled by ads.js only after a publisher ID is set. Hidden until then. */
+.ad-slot {
+  margin: 1.25rem 0 0;
+}
+
+.ad-slot[hidden] {
+  display: none !important;
+}
+
+.ad-label {
+  margin: 0 0 0.35rem;
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.ad-slot .adsbygoogle {
+  display: block;
+  min-height: 90px;
+}
+
 @media (min-width: 720px) {
   .dims {
     grid-template-columns: 1fr 1fr;
@@ -927,7 +950,8 @@ details[open] summary::after {
   #faq,
   .plan,
   .results-actions,
-  .results-kicker {
+  .results-kicker,
+  .ad-slot {
     display: none !important;
   }
 
