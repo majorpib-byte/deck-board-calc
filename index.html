@@ -16,7 +16,8 @@
       content="Make a lumber shopping list for a DIY deck. Enter the size, board width, and gap for boards by length, screws, joists, and cost. Free, in your browser."
     />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://example.com/" />
+    <meta property="og:url" content="https://majorpib-byte.github.io/deck-board-calc/" />
+    <link rel="canonical" href="https://majorpib-byte.github.io/deck-board-calc/" />
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="styles.css" />
     <script type="application/ld+json">
@@ -24,6 +25,7 @@
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": "DeckBoardCalc",
+        "url": "https://majorpib-byte.github.io/deck-board-calc/",
         "applicationCategory": "UtilitiesApplication",
         "operatingSystem": "Any",
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
@@ -440,6 +442,13 @@
           </div>
         </section>
 
+        <!--
+          Ad slot (primary): below the calculator results and shopping list.
+          Left empty on purpose. ads.js fills it only after ADSENSE_CLIENT is set.
+          No request is sent to Google while that value is blank.
+        -->
+        <div id="ad-primary" class="ad-slot" hidden></div>
+
         <section id="math" class="section screen-only">
           <div class="math-card">
             <h2>How the count works</h2>
@@ -597,6 +606,12 @@
             </div>
           </div>
         </section>
+
+        <!--
+          Ad slot (secondary): after the FAQ, before the footer.
+          Same rule as the primary slot: ads.js does not load AdSense until a publisher ID is set.
+        -->
+        <div id="ad-secondary" class="ad-slot" hidden></div>
       </div>
     </main>
 
@@ -607,11 +622,11 @@
           rectangular deck. It is not a code span table, a permit drawing, or a substitute for local rules and a
           qualified builder. Confirm spacing, spans, ledgers, guards, and footings before you build.
         </p>
-        <p>Free. No signup, no upload, no third-party scripts. The math stays in this browser.</p>
+        <p>Free. No signup, no upload. The math stays in this browser.</p>
         <p class="footer-brand">DeckBoardCalc</p>
       </div>
       <p class="print-foot print-only">
-        Printed from DeckBoardCalc · https://example.com · Estimates only, not IRC or permit advice.
+        Printed from DeckBoardCalc · https://majorpib-byte.github.io/deck-board-calc/ · Estimates only, not IRC or permit advice.
       </p>
     </footer>
 
@@ -624,5 +639,6 @@
     </div>
 
     <script type="module" src="app.js"></script>
+    <script type="module" src="ads.js"></script>
   </body>
 </html>
