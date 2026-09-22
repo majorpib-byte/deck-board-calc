@@ -30,7 +30,7 @@ node --test
 
 Publish the repository root as a static site. There is no build command and no environment variables.
 
-- **GitHub Pages:** Settings → Pages → deploy from the branch → root (`/`). The live site is [https://majorpib-byte.github.io/deck-board-calc/](https://majorpib-byte.github.io/deck-board-calc/). Styles, scripts, and the favicon use relative paths (`styles.css`, not `/styles.css`) so they load under that project path.
+- **GitHub Pages:** Settings → Pages → deploy from the branch → root (`/`). The live site is [https://deckboardcalc.com/](https://deckboardcalc.com/) (`CNAME` is `deckboardcalc.com`). Styles, scripts, and the favicon stay relative (`styles.css`, not `/styles.css`).
 - **Netlify or Cloudflare Pages:** build command empty, publish directory `.`
 - **Render:** New Static Site. Build command empty (or a no-op if the form requires one). Publish directory `.`
 
@@ -54,11 +54,11 @@ The page opens on a 16 ft by 12 ft deck (a common 12×16), 5 1/2 in boards, 1/8 
 
 ## SEO
 
-The title, meta description, and Open Graph tags (`og:title`, `og:description`, `og:url`, `og:type`) describe a DIY shopping list, not a permit tool. The canonical URL and `og:url` are `https://majorpib-byte.github.io/deck-board-calc/`. The visible FAQ and the FAQPage JSON-LD use the same questions and answers. Anchors: `#calculator`, `#shopping-list`, `#math`, `#faq`.
+The title, meta description, and Open Graph tags (`og:title`, `og:description`, `og:url`, `og:type`) describe a DIY shopping list, not a permit tool. The canonical URL and `og:url` are `https://deckboardcalc.com/`. The visible FAQ and the FAQPage JSON-LD use the same questions and answers. Anchors: `#calculator`, `#shopping-list`, `#math`, `#faq`.
 
 ## Print
 
-**Print list** opens the browser print dialog. The print stylesheet hides the header, hero, form, diagram, FAQ, ad slots, and the long math essay. It keeps the DeckBoardCalc name, the date, the deck size, the cut plan, a short math summary, the line items (boards by length, fasteners, and joists when they are included), and the total. The footer line is `Printed from DeckBoardCalc · https://majorpib-byte.github.io/deck-board-calc/`. Text is black on white, and each shopping line tries to stay on one page.
+**Print list** opens the browser print dialog. The print stylesheet hides the header, hero, form, diagram, FAQ, ad slots, and the long math essay. It keeps the DeckBoardCalc name, the date, the deck size, the cut plan, a short math summary, the line items (boards by length, fasteners, and joists when they are included), and the total. The footer line is `Printed from DeckBoardCalc · https://deckboardcalc.com/`. Text is black on white, and each shopping line tries to stay on one page.
 
 To check it: open the page, choose **Print list**, and look at the preview. The form, FAQ, and ad slots should be gone. The list, prices, and short summary should remain.
 
@@ -74,7 +74,7 @@ const ADSENSE_CLIENT = ""; // ca-pub-XXXXXXXX
 
 Leave them off until AdSense approves the site.
 
-1. Apply at [https://www.google.com/adsense/](https://www.google.com/adsense/) and submit [https://majorpib-byte.github.io/deck-board-calc/](https://majorpib-byte.github.io/deck-board-calc/).
+1. Apply at [https://www.google.com/adsense/](https://www.google.com/adsense/) and submit [https://deckboardcalc.com/](https://deckboardcalc.com/).
 2. After approval, create two Display ad units. Paste their slot IDs into `AD_SLOT_PRIMARY` and `AD_SLOT_SECONDARY` in `ads.js`.
 3. Paste the publisher ID (`ca-pub-…`) into `ADSENSE_CLIENT`.
 
