@@ -23,6 +23,7 @@ const assumptions = document.querySelector("#assumptions");
 const worked = document.querySelector("#worked");
 const printBtn = document.querySelector("#print-btn");
 const printBanner = document.querySelector("#print-banner");
+const printMath = document.querySelector("#print-math");
 const plan = document.querySelector("#plan");
 const planBoards = document.querySelector("#plan-boards");
 const dockMain = document.querySelector("#dock-main");
@@ -257,6 +258,7 @@ function render(result) {
     stats.replaceChildren();
     warnings.replaceChildren();
     cutPlan.textContent = "";
+    printMath.textContent = "";
     assumptions.textContent = "";
     shopLines.replaceChildren();
     shopTotal.hidden = true;
@@ -302,6 +304,13 @@ function render(result) {
 
   assumptions.textContent = `${formatInches(result.boardWidthIn)} boards · ${formatInches(result.gapIn)} gap · ${formatNumber(result.wastePct, 2)}% waste · joists ${formatInches(result.spacingIn)} on center`;
   cutPlan.textContent = result.cutPlan;
+  const buyBits = deckLines
+    .map((line) => `${formatNumber(line.qty, 0)} × ${line.title.replace(" deck boards", "")}`)
+    .join(" and ");
+  const joistBit = result.includeJoists
+    ? ` Joists and one rim board are listed as an exact count, not with waste added.`
+    : "";
+  printMath.textContent = `${formatLength(result.lengthIn)} along the house by ${formatLength(result.widthIn)} out (${formatNumber(result.sqft)} sq ft), ${direction}. ${formatNumber(result.rows, 0)} rows cover the deck. After ${formatNumber(result.wastePct, 2)}% waste, buy ${buyBits} (${formatNumber(result.purchasedLf)} linear ft to buy, ${formatNumber(result.installedLf)} on the deck). ${result.cutPlan} Screws to buy: ${formatNumber(result.screwsBuy, 0)}, from 2 fasteners where each board crosses each of ${formatNumber(result.joists, 0)} joists, plus the same waste percent.${joistBit}`;
 
   warnings.replaceChildren(
     ...result.warnings.map((text) => {
@@ -389,5 +398,5 @@ function announce(text) {
 
 function stampPrint() {
   const when = new Date().toLocaleDateString("en-US", { dateStyle: "long" });
-  printBanner.textContent = `DeckBoardCalc shopping list · ${when}`;
+  printBanner.textContent = `DeckBoardCalc · ${when}`;
 }

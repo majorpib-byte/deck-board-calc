@@ -49,4 +49,14 @@ The site is a single page: `index.html`, `styles.css`, `app.js`, `calc.js`, and 
 
 ## Defaults
 
-The page opens on a 16 ft by 12 ft deck (a common 12×16), 5 1/2 in boards, 1/8 in gap, 10% waste, joists at 16 in on center, and big-box ballpark prices. Change any input and the list updates. **Print list** uses the browser print dialog and a print stylesheet that keeps the shopping list and the worked math.
+The page opens on a 16 ft by 12 ft deck (a common 12×16), 5 1/2 in boards, 1/8 in gap, 10% waste, joists at 16 in on center, and big-box ballpark prices. Change any input and the list updates.
+
+## SEO
+
+The title, meta description, and Open Graph tags (`og:title`, `og:description`, `og:url`, `og:type`) describe a DIY shopping list, not a permit tool. `og:url` is `https://example.com/` until you replace it with the live address. The visible FAQ and the FAQPage JSON-LD use the same questions and answers. Anchors: `#calculator`, `#shopping-list`, `#math`, `#faq`.
+
+## Print
+
+**Print list** opens the browser print dialog. The print stylesheet hides the header, hero, form, diagram, FAQ, and the long math essay. It keeps the DeckBoardCalc name, the date, the deck size, the cut plan, a short math summary, the line items (boards by length, fasteners, and joists when they are included), and the total. The footer line is `Printed from DeckBoardCalc · https://example.com` — swap in your URL when you have one. Text is black on white, and each shopping line tries to stay on one page.
+
+To check it: open the page, choose **Print list**, and look at the preview. The form and FAQ should be gone. The list, prices, and short summary should remain.
