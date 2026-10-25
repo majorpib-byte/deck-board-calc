@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Concrete footing bag calculator | DeckBoardCalc</title>
+    <meta name="description" content="Bags of concrete mix for round deck footing tubes. Cylinder volume divided by the yield on the bag. Not a footing design." />
+    <meta name="theme-color" content="#1b3a2f" />
+    <meta property="og:site_name" content="DeckBoardCalc" />
+    <meta property="og:title" content="Concrete footing bag calculator | DeckBoardCalc" />
+    <meta property="og:description" content="Bags of concrete mix for round deck footing tubes. Cylinder volume divided by the yield on the bag. Not a footing design." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://deckboardcalc.com/footings.html" />
+    <link rel="canonical" href="https://deckboardcalc.com/footings.html" />
+    <meta name="google-adsense-account" content="ca-pub-2388538564495463" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2388538564495463" crossorigin="anonymous"></script>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How many 80 lb bags are in a 12 inch by 4 foot tube?",
+            "acceptedAnswer": {"@type": "Answer", "text": "A 12 inch diameter tube, 48 inches deep, holds pi cubic feet, about 3.14. An 80 lb bag of ordinary concrete mix that yields 0.60 cubic feet covers that hole in about 5.24 bags, so you buy 6 bags for one hole with no waste. Four holes at 10 percent waste come to about 23.04 bags, so you buy 24. Read the yield on your bag. Fast-setting mixes often yield less."}
+          },
+          {
+            "@type": "Question",
+            "name": "Does this calculator set the footing depth?",
+            "acceptedAnswer": {"@type": "Answer", "text": "No. You type the depth. Frost line, soil, load, and the local code decide how deep and how wide a footing has to be. This page only turns a round hole you already sized into a bag count."}
+          },
+          {
+            "@type": "Question",
+            "name": "What about a belled footing or a gravel base?",
+            "acceptedAnswer": {"@type": "Answer", "text": "They are not in the cylinder. A bell at the bottom adds concrete. A few inches of gravel at the bottom replaces concrete. Measure the concrete depth, not the hole depth, if they differ, or raise the waste percent to cover a bell you have not drawn."}
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body data-ads="slots">
+    <a class="skip" href="#content">Skip to content</a>
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="logo" href="index.html"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true">
+            <rect width="32" height="32" rx="7" fill="#1b3a2f" />
+            <path d="M9 7.5v17M14 7.5v17M19 7.5v17M24 7.5v17M7.5 23.5L25.5 9" fill="none" stroke="#f3efe6" stroke-width="1.8" stroke-linecap="round" />
+          </svg>DeckBoardCalc</a>
+        <nav class="nav" aria-label="Site"><a href="calculators.html" aria-current="page">Calculators</a><a href="guides/index.html">Guides</a><a href="about.html">About</a></nav>
+      </div>
+    </header>
+    <main id="content">
+      <div class="wrap narrow">
+
+        <header class="page-intro">
+          <p class="eyebrow">Concrete</p>
+          <h1>Footing bags for round tubes</h1>
+          <p class="lede">Volume of a cylinder, divided by the cubic feet one bag makes. You still have to choose a legal footing. This only counts bags.</p>
+          <p class="updated">Last updated October 25, 2026</p>
+        </header>
+        <form id="footing-form" class="calc-form" autocomplete="off">
+          <fieldset>
+            <legend>One tube</legend>
+            <p class="help">Use the inside diameter of the tube. Depth is the concrete, in inches. 48 inches is 4 feet.</p>
+            <div class="dims">
+              <label class="field">Diameter, inches<input name="diameter" type="number" inputmode="decimal" min="0" step="1" value="12" /></label>
+              <label class="field">Depth, inches<input name="depth" type="number" inputmode="decimal" min="0" step="1" value="48" /></label>
+              <label class="field">Number of holes<input name="holes" type="number" inputmode="numeric" min="1" step="1" value="4" /></label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>The bag</legend>
+            <p class="help">Many ordinary concrete-mix bags print about 0.60 cubic feet for 80 lb, 0.45 for 60 lb, and 0.30 for 40 lb. Fast-set bags often yield less. Use the number on the bag you will carry.</p>
+            <div class="chips">
+              <button type="button" class="chip" data-yield="0.60">80 lb · 0.60</button>
+              <button type="button" class="chip" data-yield="0.45">60 lb · 0.45</button>
+              <button type="button" class="chip" data-yield="0.30">40 lb · 0.30</button>
+            </div>
+            <div class="dims" style="margin-top:0.75rem">
+              <label class="field">Cubic feet per bag<input name="yield" type="number" inputmode="decimal" min="0" step="0.01" value="0.60" /></label>
+              <label class="field">Waste, percent<input name="waste" type="number" inputmode="decimal" min="0" max="100" step="1" value="10" /></label>
+            </div>
+          </fieldset>
+        </form>
+        <div class="results" style="margin-top:1rem">
+          <p class="results-kicker">Bags to buy</p>
+          <p class="results-count"><output id="bags">…</output> <span class="unit">bags</span></p>
+          <p id="footing-detail"></p>
+          <p id="footing-error" class="results-error" role="alert" hidden></p>
+          <div class="results-actions no-print">
+            <button type="button" class="btn" id="print-btn">Print</button>
+          </div>
+        </div>
+        <p id="footing-summary" class="visually-hidden" aria-live="polite"></p>
+        <div id="ad-primary" class="ad-slot" hidden></div>
+        <article class="article">
+          <h2>Worked example</h2>
+          <div class="example">
+            <p>A 12 inch tube, 48 inches deep: radius 6 inches, so the volume is π × 6² × 48 cubic inches, which is π cubic feet, about 3.14. Divide by 0.60 and one hole wants about 5.24 bags. Buy 6 if you are filling one hole with nothing spilled. Four holes are about 20.94 bags. Add 10% and you are at about 23.04, so the page opens on 24 bags.</p>
+          </div>
+          <h2>What this is not</h2>
+          <p>It is not a frost-depth map, a soil bearing value, or a post size. A deck footing that is too small fails even if you bought the right number of bags for the hole you dug. Ask the building department how deep and how wide the footing has to be before you order concrete.</p>
+          <p>Joist layout is a different shopping list. See <a href="guides/joist-spacing.html">joist spacing basics</a> and the <a href="index.html">board calculator</a> for the lumber on top of the frame.</p>
+          <h2>Common questions</h2>
+          <div class="faq">
+            <details>
+              <summary>How many 80 lb bags are in a 12 inch by 4 foot tube?</summary>
+              <div class="answer"><p>A 12 inch diameter tube, 48 inches deep, holds pi cubic feet, about 3.14. An 80 lb bag of ordinary concrete mix that yields 0.60 cubic feet covers that hole in about 5.24 bags, so you buy 6 bags for one hole with no waste. Four holes at 10 percent waste come to about 23.04 bags, so you buy 24. Read the yield on your bag. Fast-setting mixes often yield less.</p></div>
+            </details>
+            <details>
+              <summary>Does this calculator set the footing depth?</summary>
+              <div class="answer"><p>No. You type the depth. Frost line, soil, load, and the local code decide how deep and how wide a footing has to be. This page only turns a round hole you already sized into a bag count.</p></div>
+            </details>
+            <details>
+              <summary>What about a belled footing or a gravel base?</summary>
+              <div class="answer"><p>They are not in the cylinder. A bell at the bottom adds concrete. A few inches of gravel at the bottom replaces concrete. Measure the concrete depth, not the hole depth, if they differ, or raise the waste percent to cover a bell you have not drawn.</p></div>
+            </details>
+          </div>
+        </article>
+
+      </div>
+    </main>
+    <footer class="site-footer">
+      <div class="wrap screen-only">
+        <p><strong>Estimates only.</strong> DeckBoardCalc counts materials for a rectangular deck. It is not a code span table, a permit drawing, or a substitute for local rules and a qualified builder.</p>
+        <ul class="footer-links"><li><a href="calculators.html">Calculators</a></li><li><a href="guides/index.html">Guides</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li><li><a href="privacy.html">Privacy</a></li><li><a href="terms.html">Terms</a></li></ul>
+        <p>Last updated October 25, 2026</p>
+        <p class="footer-brand">DeckBoardCalc</p>
+      </div>
+      <p class="print-foot print-only">Printed from DeckBoardCalc · https://deckboardcalc.com/ · Estimates only, not IRC or permit advice.</p>
+    </footer>
+    <script type="module" src="ads.js"></script>
+    <script type="module" src="footing-app.js"></script>
+  </body>
+</html>

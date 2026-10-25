@@ -29,20 +29,41 @@ function mountAd(id, slot) {
   (window.adsbygoogle = window.adsbygoogle || []).push({});
 }
 
+function loaderAlreadyPresent() {
+  return Boolean(
+    document.querySelector('script[src*="pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"]'),
+  );
+}
+
 if (ADS_ENABLED) {
-  const loader = document.createElement("script");
-  loader.async = true;
-  loader.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${encodeURIComponent(ADSENSE_CLIENT)}`;
-  loader.crossOrigin = "anonymous";
-  document.head.append(loader);
+  // The head of each page includes this script for AdSense site verification.
+  // Do not inject a second copy.
+  if (!loaderAlreadyPresent()) {
+    const loader = document.createElement("script");
+    loader.async = true;
+    loader.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${encodeURIComponent(ADSENSE_CLIENT)}`;
+    loader.crossOrigin = "anonymous";
+    document.head.append(loader);
+  }
 
-  if (AD_SLOT_PRIMARY) mountAd("ad-primary", AD_SLOT_PRIMARY);
-  if (AD_SLOT_SECONDARY) mountAd("ad-secondary", AD_SLOT_SECONDARY);
+  // data-ads="off": trust and error pages. Script stays for verification. No units.
+  // data-ads="slots": calculators. Units only below the results, and only after a slot ID is set.
+  //   Page-level Auto ads stay off so Google is not asked to place a unit above the inputs.
+  // data-ads="auto" (or omitted): long guides. Auto ads while both slot IDs are blank.
+  const mode = document.body?.dataset.ads || "auto";
 
-  if (!AD_SLOT_PRIMARY && !AD_SLOT_SECONDARY) {
-    (window.adsbygoogle = window.adsbygoogle || []).push({
-      google_ad_client: ADSENSE_CLIENT,
-      enable_page_level_ads: true,
-    });
+  if (mode === "slots") {
+    if (AD_SLOT_PRIMARY) mountAd("ad-primary", AD_SLOT_PRIMARY);
+    if (AD_SLOT_SECONDARY) mountAd("ad-secondary", AD_SLOT_SECONDARY);
+  } else if (mode !== "off") {
+    if (AD_SLOT_PRIMARY) mountAd("ad-primary", AD_SLOT_PRIMARY);
+    if (AD_SLOT_SECONDARY) mountAd("ad-secondary", AD_SLOT_SECONDARY);
+
+    if (!AD_SLOT_PRIMARY && !AD_SLOT_SECONDARY) {
+      (window.adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: ADSENSE_CLIENT,
+        enable_page_level_ads: true,
+      });
+    }
   }
 }

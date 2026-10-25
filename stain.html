@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Deck stain and sealer calculator | DeckBoardCalc</title>
+    <meta name="description" content="Estimate gallons of deck stain or sealer from deck size, coats, and the coverage on the can. A shopping estimate, not a product promise." />
+    <meta name="theme-color" content="#1b3a2f" />
+    <meta property="og:site_name" content="DeckBoardCalc" />
+    <meta property="og:title" content="Deck stain and sealer calculator | DeckBoardCalc" />
+    <meta property="og:description" content="Estimate gallons of deck stain or sealer from deck size, coats, and the coverage on the can. A shopping estimate, not a product promise." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://deckboardcalc.com/stain.html" />
+    <link rel="canonical" href="https://deckboardcalc.com/stain.html" />
+    <meta name="google-adsense-account" content="ca-pub-2388538564495463" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2388538564495463" crossorigin="anonymous"></script>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Does deck stain coverage include the rails?",
+            "acceptedAnswer": {"@type": "Answer", "text": "No. This count is the flat deck rectangle only: length times width, times the number of coats, divided by the square feet per gallon on the can. Rails, stairs, fascia, and the edges of the boards take more finish. Add them by hand or buy the extra gallon the waste percent is already pushing you toward."}
+          },
+          {
+            "@type": "Question",
+            "name": "Is the coverage number for one coat or for the whole job?",
+            "acceptedAnswer": {"@type": "Answer", "text": "Use the square feet per gallon printed for one coat. Two coats divide that coverage in half, which is why the calculator multiplies area by the number of coats before it divides. Rough, dry, or thirsty wood often covers less than the smooth-wood number on the can. If the label gives a range, use the low end."}
+          },
+          {
+            "@type": "Question",
+            "name": "Why buy whole gallons?",
+            "acceptedAnswer": {"@type": "Answer", "text": "The calculator rounds up to the next gallon because that is how most cans are sold. A job that needs 2.11 gallons buys 3. Quarts exist; if you would rather buy a gallon plus quarts, use the gallon-and-fraction line and split it yourself. Color can vary between batches, so one extra can from the same lot is often the safer buy."}
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body data-ads="slots">
+    <a class="skip" href="#content">Skip to content</a>
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="logo" href="index.html"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true">
+            <rect width="32" height="32" rx="7" fill="#1b3a2f" />
+            <path d="M9 7.5v17M14 7.5v17M19 7.5v17M24 7.5v17M7.5 23.5L25.5 9" fill="none" stroke="#f3efe6" stroke-width="1.8" stroke-linecap="round" />
+          </svg>DeckBoardCalc</a>
+        <nav class="nav" aria-label="Site"><a href="calculators.html" aria-current="page">Calculators</a><a href="guides/index.html">Guides</a><a href="about.html">About</a></nav>
+      </div>
+    </header>
+    <main id="content">
+      <div class="wrap narrow">
+
+        <header class="page-intro">
+          <p class="eyebrow">Finish</p>
+          <h1>Deck stain and sealer coverage</h1>
+          <p class="lede">Gallons for the flat rectangle. Type the coverage from the can. Two coats means the same square foot gets paint twice.</p>
+          <p class="updated">Last updated October 25, 2026</p>
+        </header>
+        <form id="stain-form" class="calc-form" autocomplete="off">
+          <fieldset>
+            <legend>Deck surface</legend>
+            <p class="help">Length times width is the walking surface only. A 16 by 12 foot deck is 192 square feet.</p>
+            <div class="dims">
+              <label class="field">Length, feet<input name="lengthFt" type="number" inputmode="decimal" min="0" step="0.1" value="16" /></label>
+              <label class="field">Width, feet<input name="widthFt" type="number" inputmode="decimal" min="0" step="0.1" value="12" /></label>
+            </div>
+            <div class="chips" style="margin-top:0.75rem">
+              <button type="button" class="chip" data-deck-length="12" data-deck-width="10">10×12</button>
+              <button type="button" class="chip" data-deck-length="16" data-deck-width="12">12×16</button>
+              <button type="button" class="chip" data-deck-length="20" data-deck-width="14">14×20</button>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>The can</legend>
+            <div class="dims">
+              <label class="field">Coats<input name="coats" type="number" inputmode="numeric" min="1" max="5" step="1" value="2" /></label>
+              <label class="field">Sq ft per gallon, one coat<input name="coverage" type="number" inputmode="decimal" min="50" step="10" value="200" /></label>
+              <label class="field">Waste, percent<input name="waste" type="number" inputmode="decimal" min="0" max="100" step="1" value="10" /></label>
+            </div>
+            <p class="help">200 square feet per gallon is a planning default for thirsty softwood. Use the number on your can. The low end of a range is the safer one.</p>
+          </fieldset>
+        </form>
+        <div class="results" style="margin-top:1rem">
+          <p class="results-kicker">Gallons to buy</p>
+          <p class="results-count"><output id="gallons">…</output> <span class="unit">gallons</span></p>
+          <p id="stain-detail"></p>
+          <p id="stain-error" class="results-error" role="alert" hidden></p>
+          <div class="results-actions no-print">
+            <button type="button" class="btn" id="print-btn">Print</button>
+          </div>
+        </div>
+        <p id="stain-summary" class="visually-hidden" aria-live="polite"></p>
+        <div id="ad-primary" class="ad-slot" hidden></div>
+        <article class="article">
+          <h2>Worked example</h2>
+          <div class="example">
+            <p>A 16 by 12 foot deck is 192 square feet. Two coats at 200 square feet per gallon need 192 × 2 ÷ 200 = 1.92 gallons. Add 10% and you are at 2.11 gallons, so you buy 3 one-gallon cans. That is the number this page opens on.</p>
+          </div>
+          <h2>What the number leaves out</h2>
+          <p>Rails, stair treads, risers, and fascia are not in the rectangle. A guard around a 12×16, stained on both faces, can drink as much as a second small deck. Measure those square feet and run them through the same formula, or keep the spare gallon.</p>
+          <p>New pressure-treated lumber is often too wet to stain. The can will say so. Waiting does not change the gallon count. It changes whether the first coat is wasted.</p>
+          <p>Read the longer notes in <a href="guides/pressure-treated-vs-composite.html">pressure-treated versus composite</a>. Composite is often a soap-and-water surface, not a stain job. Do not buy stain for a cap-stock board unless the manufacturer says to.</p>
+          <h2>Common questions</h2>
+          <div class="faq">
+            <details>
+              <summary>Does deck stain coverage include the rails?</summary>
+              <div class="answer"><p>No. This count is the flat deck rectangle only: length times width, times the number of coats, divided by the square feet per gallon on the can. Rails, stairs, fascia, and the edges of the boards take more finish. Add them by hand or buy the extra gallon the waste percent is already pushing you toward.</p></div>
+            </details>
+            <details>
+              <summary>Is the coverage number for one coat or for the whole job?</summary>
+              <div class="answer"><p>Use the square feet per gallon printed for one coat. Two coats divide that coverage in half, which is why the calculator multiplies area by the number of coats before it divides. Rough, dry, or thirsty wood often covers less than the smooth-wood number on the can. If the label gives a range, use the low end.</p></div>
+            </details>
+            <details>
+              <summary>Why buy whole gallons?</summary>
+              <div class="answer"><p>The calculator rounds up to the next gallon because that is how most cans are sold. A job that needs 2.11 gallons buys 3. Quarts exist; if you would rather buy a gallon plus quarts, use the gallon-and-fraction line and split it yourself. Color can vary between batches, so one extra can from the same lot is often the safer buy.</p></div>
+            </details>
+          </div>
+        </article>
+
+      </div>
+    </main>
+    <footer class="site-footer">
+      <div class="wrap screen-only">
+        <p><strong>Estimates only.</strong> DeckBoardCalc counts materials for a rectangular deck. It is not a code span table, a permit drawing, or a substitute for local rules and a qualified builder.</p>
+        <ul class="footer-links"><li><a href="calculators.html">Calculators</a></li><li><a href="guides/index.html">Guides</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li><li><a href="privacy.html">Privacy</a></li><li><a href="terms.html">Terms</a></li></ul>
+        <p>Last updated October 25, 2026</p>
+        <p class="footer-brand">DeckBoardCalc</p>
+      </div>
+      <p class="print-foot print-only">Printed from DeckBoardCalc · https://deckboardcalc.com/ · Estimates only, not IRC or permit advice.</p>
+    </footer>
+    <script type="module" src="ads.js"></script>
+    <script type="module" src="stain-app.js"></script>
+  </body>
+</html>

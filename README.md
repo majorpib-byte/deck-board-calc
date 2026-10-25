@@ -24,7 +24,7 @@ Then visit http://localhost:8080
 node --test
 ```
 
-`npm test` is the same thing. Node 20+ is enough. The tests cover the row formula, waste rounding, stock choice, splices, joist count, and the default 12×16 totals.
+`npm test` is the same thing. Node 20+ is enough. The tests cover the row formula, waste rounding, stock choice, splices, joist count, the default 12×16 totals, stain gallons, footing bags, baluster counts, and the AdSense head snippet.
 
 ## Deploy
 
@@ -34,7 +34,7 @@ Publish the repository root as a static site. There is no build command and no e
 - **Netlify or Cloudflare Pages:** build command empty, publish directory `.`
 - **Render:** New Static Site. Build command empty (or a no-op if the form requires one). Publish directory `.`
 
-The site is a single page: `index.html`, `styles.css`, `app.js`, `calc.js`, `ads.js`, and `favicon.svg`.
+The board calculator is the homepage. Other pages are static HTML next to it: `calculators.html`, `stain.html`, `footings.html`, `railing.html`, `about.html`, `contact.html`, `privacy.html`, `terms.html`, `404.html`, and `guides/`. Styles and scripts use relative paths (`styles.css`, or `../styles.css` from a guide) so they load on the custom domain. `sitemap.xml`, `robots.txt`, and `ads.txt` sit at the site root.
 
 ## Layout
 
@@ -43,9 +43,11 @@ The site is a single page: `index.html`, `styles.css`, `app.js`, `calc.js`, `ads
 | `index.html` | Page, FAQ, and FAQ schema |
 | `styles.css` | Layout, including print styles for the shopping list |
 | `app.js` | Reads the form and updates the list as you type |
-| `ads.js` | AdSense. Auto ads until display slot IDs are pasted in |
-| `calc.js` | Pure math, no DOM |
-| `calc.test.js` | Unit tests for that math |
+| `ads.js` | AdSense. Skips a second loader if the head script is already there |
+| `ads.txt` | AdSense seller record for the publisher ID |
+| `calc.js` | Board, joist, and screw math, no DOM |
+| `stain.js`, `footing.js`, `railing.js` | The other calculators’ math |
+| `calc.test.js` and the matching `*.test.js` files | Unit tests |
 | `FORMULAS.md` | The formulas in plain language, with the 12×16 example |
 
 ## Defaults
@@ -54,7 +56,7 @@ The page opens on a 16 ft by 12 ft deck (a common 12×16), 5 1/2 in boards, 1/8 
 
 ## SEO
 
-The title, meta description, and Open Graph tags (`og:title`, `og:description`, `og:url`, `og:type`) describe a DIY shopping list, not a permit tool. The canonical URL and `og:url` are `https://deckboardcalc.com/`. The visible FAQ and the FAQPage JSON-LD use the same questions and answers. Anchors: `#calculator`, `#shopping-list`, `#math`, `#faq`.
+The title, meta description, and Open Graph tags (`og:title`, `og:description`, `og:url`, `og:type`) describe a DIY shopping list, not a permit tool. The homepage canonical URL and `og:url` are `https://deckboardcalc.com/`. Other pages set their own canonical and Open Graph URLs. `sitemap.xml` lists the public pages. `robots.txt` allows crawling and points at that sitemap. The visible FAQ on the homepage and the FAQPage JSON-LD use the same questions and answers. Each page shows “Last updated October 25, 2026.”
 
 ## Print
 
@@ -64,21 +66,21 @@ To check it: open the page, choose **Print list**, and look at the preview. The 
 
 ## Ads
 
-The publisher ID is set in `ads.js`:
+Every HTML page includes this in `<head>`, which is what AdSense site verification looks for:
 
-```js
-const ADSENSE_CLIENT = "ca-pub-2388538564495463";
+```html
+<meta name="google-adsense-account" content="ca-pub-2388538564495463" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2388538564495463" crossorigin="anonymous"></script>
 ```
 
-That loads `adsbygoogle.js?client=ca-pub-2388538564495463` with `crossorigin="anonymous"`. `AD_SLOT_PRIMARY` and `AD_SLOT_SECONDARY` are still empty, so `#ad-primary` and `#ad-secondary` stay hidden. With both slot IDs blank, the page turns on Auto ads once:
+`ads.js` still has `const ADSENSE_CLIENT = "ca-pub-2388538564495463"`. If that head script is already on the page, `ads.js` does not add a second copy. `ads.txt` at the site root is:
 
-```js
-(window.adsbygoogle = window.adsbygoogle || []).push({
-  google_ad_client: ADSENSE_CLIENT,
-  enable_page_level_ads: true,
-});
+```text
+google.com, pub-2388538564495463, DIRECT, f08c47fec0942fa0
 ```
 
-To use fixed units later, create Display ad units in AdSense and paste the slot IDs into `AD_SLOT_PRIMARY` (under the shopping list) and `AD_SLOT_SECONDARY` (after the FAQ). A filled ID is mounted as a display unit. Auto ads run only while both IDs are blank. An empty ID is not mounted.
+`AD_SLOT_PRIMARY` and `AD_SLOT_SECONDARY` are still empty, so manual units stay hidden. Where they appear later, they sit under the results, never above the inputs. Trust pages (`about.html`, `contact.html`, `privacy.html`, `terms.html`) and `404.html` set `data-ads="off"`: the verification script stays, and `ads.js` does not request page-level ads or fill a slot. Calculator pages set `data-ads="slots"`: a slot ID mounts a unit below the list, and page-level Auto ads are not requested, so the page is not asking Google to place an ad over the form. Guide pages set `data-ads="auto"`: with both slot IDs blank, Auto ads are enabled once.
 
-Print hides the ad hosts and AdSense units, including Auto ads. The reserved slots sit outside the form and do not cover the inputs or the Print button. Manage the account at [https://www.google.com/adsense/](https://www.google.com/adsense/) for [https://deckboardcalc.com/](https://deckboardcalc.com/).
+If the AdSense account has Auto ads turned on for the whole site, Google can still place ads from the head script alone. Exclude the trust-page URLs in the AdSense dashboard if those pages should stay ad-free.
+
+Print hides ad hosts, `ins.adsbygoogle`, Auto-placed units, and syndication iframes. Manage the account at [https://www.google.com/adsense/](https://www.google.com/adsense/) for [https://deckboardcalc.com/](https://deckboardcalc.com/).
