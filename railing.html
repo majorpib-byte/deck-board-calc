@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Deck railing baluster calculator | DeckBoardCalc</title>
+    <meta name="description" content="Count deck balusters so the opening stays at or under the gap you set. Straight runs and closed rails. A shopping estimate, not a code check." />
+    <meta name="theme-color" content="#1b3a2f" />
+    <meta property="og:site_name" content="DeckBoardCalc" />
+    <meta property="og:title" content="Deck railing baluster calculator | DeckBoardCalc" />
+    <meta property="og:description" content="Count deck balusters so the opening stays at or under the gap you set. Straight runs and closed rails. A shopping estimate, not a code check." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://deckboardcalc.com/railing.html" />
+    <link rel="canonical" href="https://deckboardcalc.com/railing.html" />
+    <meta name="google-adsense-account" content="ca-pub-2388538564495463" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2388538564495463" crossorigin="anonymous"></script>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How many balusters are in an 8 foot section?",
+            "acceptedAnswer": {"@type": "Answer", "text": "With 1 1/2 inch balusters and a maximum opening of 4 inches, an 8 foot (96 inch) section needs 17 balusters. The opening works out to about 3.92 inches, which is under 4. A 6 foot section needs 13, with a 3.75 inch opening. Your local rule may not be 4 inches. Type the opening you were told to meet."}
+          },
+          {
+            "@type": "Question",
+            "name": "Why are there openings at the posts?",
+            "acceptedAnswer": {"@type": "Answer", "text": "The count assumes a gap at each end post as well as between balusters. n balusters create n + 1 openings. If you tighten the balusters against the posts and only gap between them, you need a different layout. Do not leave an end gap larger than the opening you set."}
+          },
+          {
+            "@type": "Question",
+            "name": "How do posts work on a closed deck?",
+            "acceptedAnswer": {"@type": "Answer", "text": "A straight run has a post at both ends, so posts equal sections plus one. A closed pen shares every corner. Check closed loop and the post count equals the number of sections. Enter the perimeter once. Do not add four separate sides and then add their end posts, or each corner is ordered twice."}
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body data-ads="slots">
+    <a class="skip" href="#content">Skip to content</a>
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="logo" href="index.html"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true">
+            <rect width="32" height="32" rx="7" fill="#1b3a2f" />
+            <path d="M9 7.5v17M14 7.5v17M19 7.5v17M24 7.5v17M7.5 23.5L25.5 9" fill="none" stroke="#f3efe6" stroke-width="1.8" stroke-linecap="round" />
+          </svg>DeckBoardCalc</a>
+        <nav class="nav" aria-label="Site"><a href="calculators.html" aria-current="page">Calculators</a><a href="guides/index.html">Guides</a><a href="about.html">About</a></nav>
+      </div>
+    </header>
+    <main id="content">
+      <div class="wrap narrow">
+
+        <header class="page-intro">
+          <p class="eyebrow">Guard</p>
+          <h1>Railing balusters</h1>
+          <p class="lede">Enough balusters that every opening, including the ones against the posts, stays at or under the gap you type. Confirm that gap locally before you buy.</p>
+          <p class="updated">Last updated October 25, 2026</p>
+        </header>
+        <form id="railing-form" class="calc-form" autocomplete="off">
+          <fieldset>
+            <legend>The run</legend>
+            <p class="help">Section length is the longest stretch between posts. The tool splits the rail into equal sections no longer than that.</p>
+            <div class="dims">
+              <label class="field">Rail length, feet<input name="lengthFt" type="number" inputmode="decimal" min="0" step="0.1" value="24" /></label>
+              <label class="field">Max section, feet<input name="sectionFt" type="number" inputmode="decimal" min="0" step="0.1" value="6" /></label>
+            </div>
+            <label class="checkline" style="margin-top:0.75rem">
+              <input name="closed" type="checkbox" />
+              <span>Closed loop, corners shared (a full pen)</span>
+            </label>
+          </fieldset>
+          <fieldset>
+            <legend>Baluster and opening</legend>
+            <p class="help">A 2×2 is about 1 1/2 inches. Four inches is a common guard opening, not a promise that your town uses it.</p>
+            <div class="dims">
+              <label class="field">Baluster width, inches<input name="baluster" type="number" inputmode="decimal" min="0" step="0.125" value="1.5" /></label>
+              <label class="field">Max opening, inches<input name="maxGap" type="number" inputmode="decimal" min="0" step="0.125" value="4" /></label>
+              <label class="field">Waste, percent<input name="waste" type="number" inputmode="decimal" min="0" max="100" step="1" value="10" /></label>
+            </div>
+          </fieldset>
+        </form>
+        <div class="results" style="margin-top:1rem">
+          <p class="results-kicker">Balusters to buy</p>
+          <p class="results-count"><output id="balusters">…</output> <span class="unit">balusters</span></p>
+          <p id="railing-detail"></p>
+          <p id="railing-error" class="results-error" role="alert" hidden></p>
+          <div class="results-actions no-print">
+            <button type="button" class="btn" id="print-btn">Print</button>
+          </div>
+        </div>
+        <p id="railing-summary" class="visually-hidden" aria-live="polite"></p>
+        <div id="ad-primary" class="ad-slot" hidden></div>
+        <article class="article">
+          <h2>Worked example</h2>
+          <div class="example">
+            <p>A 24 foot straight rail with posts at most 6 feet apart is four sections of 6 feet. Each 72 inch section, with 1 1/2 inch balusters and a 4 inch maximum opening, needs 13 balusters. The opening is 3.75 inches. Four sections are 52 balusters. At 10% waste you buy 58. Posts: 5, because a straight run has a post at each end.</p>
+          </div>
+          <h2>The formula</h2>
+          <p>n balusters and n + 1 openings fill the section. If every opening must be at most G and each baluster is W wide, then n is (section − G) ÷ (W + G), rounded up. The page then reports the real opening after that round-up, which is a little tighter than G.</p>
+          <p>An 8 foot section under the same defaults needs 17 balusters, not 13. Longer bays are not a free stretch of the same spacing. See <a href="guides/joist-spacing.html">joist spacing</a> for the same kind of “both ends count” idea on the frame, and the <a href="index.html">board calculator</a> for the decking those joists carry.</p>
+          <h2>Common questions</h2>
+          <div class="faq">
+            <details>
+              <summary>How many balusters are in an 8 foot section?</summary>
+              <div class="answer"><p>With 1 1/2 inch balusters and a maximum opening of 4 inches, an 8 foot (96 inch) section needs 17 balusters. The opening works out to about 3.92 inches, which is under 4. A 6 foot section needs 13, with a 3.75 inch opening. Your local rule may not be 4 inches. Type the opening you were told to meet.</p></div>
+            </details>
+            <details>
+              <summary>Why are there openings at the posts?</summary>
+              <div class="answer"><p>The count assumes a gap at each end post as well as between balusters. n balusters create n + 1 openings. If you tighten the balusters against the posts and only gap between them, you need a different layout. Do not leave an end gap larger than the opening you set.</p></div>
+            </details>
+            <details>
+              <summary>How do posts work on a closed deck?</summary>
+              <div class="answer"><p>A straight run has a post at both ends, so posts equal sections plus one. A closed pen shares every corner. Check closed loop and the post count equals the number of sections. Enter the perimeter once. Do not add four separate sides and then add their end posts, or each corner is ordered twice.</p></div>
+            </details>
+          </div>
+        </article>
+
+      </div>
+    </main>
+    <footer class="site-footer">
+      <div class="wrap screen-only">
+        <p><strong>Estimates only.</strong> DeckBoardCalc counts materials for a rectangular deck. It is not a code span table, a permit drawing, or a substitute for local rules and a qualified builder.</p>
+        <ul class="footer-links"><li><a href="calculators.html">Calculators</a></li><li><a href="guides/index.html">Guides</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li><li><a href="privacy.html">Privacy</a></li><li><a href="terms.html">Terms</a></li></ul>
+        <p>Last updated October 25, 2026</p>
+        <p class="footer-brand">DeckBoardCalc</p>
+      </div>
+      <p class="print-foot print-only">Printed from DeckBoardCalc · https://deckboardcalc.com/ · Estimates only, not IRC or permit advice.</p>
+    </footer>
+    <script type="module" src="ads.js"></script>
+    <script type="module" src="railing-app.js"></script>
+  </body>
+</html>
